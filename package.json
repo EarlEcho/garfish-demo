@@ -1,0 +1,12 @@
+{
+  "name": "garfish-demo",
+  "version": "1.0.0",
+  "description": "使用 garfish 做的微前端 demo, 子应用使用 vite + vue3 + ts",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Echo",
+  "license": "ISC",
+  "dependencies": {}
+}
