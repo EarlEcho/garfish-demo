@@ -1,7 +1,13 @@
-<script setup lang="ts">
+<script setup>
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
-import HelloWorld from './components/HelloWorld.vue'
+import HelloWorld from "./components/HelloWorld.vue";
+
+const backToMain = () => {
+  window.Garfish.router.replace({
+    path: '/'
+  })
+};
 </script>
 
 <template>
@@ -10,7 +16,9 @@ import HelloWorld from './components/HelloWorld.vue'
       <img src="/vite.svg" class="logo" alt="Vite logo" />
     </a>
   </div>
-  <HelloWorld msg="Vite + Vue（App-Vue3）" />
+  <HelloWorld msg="子应用（App-Vue3）" />
+
+  <p @click="backToMain">点击退出子应用，回到主应用</p>
 </template>
 
 <style scoped>

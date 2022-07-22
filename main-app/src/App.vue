@@ -3,11 +3,15 @@
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
 import HelloWorld from "./components/HelloWorld.vue";
 import SubApp from "./components/SubApp.vue";
+
+const toSubApp = () => {
+  window.Garfish.router.push({ path: "/appVue3" });
+};
 </script>
 
 <template>
   <HelloWorld msg="Vite + Vue（Main-App）" />
-
+  <p @click="toSubApp">主应用： 点击进入子应用</p>
   <SubApp />
 </template>
 

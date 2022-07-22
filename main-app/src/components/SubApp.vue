@@ -3,7 +3,8 @@ import { ref } from "vue";
 </script>
 
 <template>
-  <div id="subApp">Hi!! - I`m subapp wrapper</div>
+  <div id="subApp">
+  </div>
 </template>
 
 <style scoped>
