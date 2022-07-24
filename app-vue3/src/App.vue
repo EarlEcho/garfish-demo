@@ -1,13 +1,17 @@
 <script setup>
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
+import { ref, computed, getCurrentInstance } from 'vue'
 import HelloWorld from "./components/HelloWorld.vue";
-
+const { proxy } = getCurrentInstance();
+const currentRouter = ref('-')
 const backToMain = () => {
-  window.Garfish.router.replace({
+  window?.Garfish?.router.replace({
     path: '/'
   })
 };
+
+const toChildRoute = () => {
+  proxy.$router.push({ name: 'ChildMenu' });
+}
 </script>
 
 <template>
@@ -19,6 +23,10 @@ const backToMain = () => {
   <HelloWorld msg="子应用（App-Vue3）" />
 
   <p @click="backToMain">点击退出子应用，回到主应用</p>
+  <hr />
+  <p @click="toChildRoute">点击进入子应用的子路由 {{ currentRouter }}</p>
+
+  <router-view />
 </template>
 
 <style scoped>
@@ -27,9 +35,11 @@ const backToMain = () => {
   padding: 1.5em;
   will-change: filter;
 }
+
 .logo:hover {
   filter: drop-shadow(0 0 2em #646cffaa);
 }
+
 .logo.vue:hover {
   filter: drop-shadow(0 0 2em #42b883aa);
 }
