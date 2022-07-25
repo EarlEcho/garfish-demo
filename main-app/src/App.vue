@@ -1,30 +1,17 @@
 <script setup>
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
-import HelloWorld from "./components/HelloWorld.vue";
-import SubApp from "./components/SubApp.vue";
+// import HelloWorld from "./components/HelloWorld.vue";
+// import SubApp from "./components/SubApp.vue";
+
+import Layout from "./components/Layout.vue";
 
 const toSubApp = () => {
   window.Garfish.router.push({ path: "/appVue3" });
 };
 </script>
-
 <template>
-  <HelloWorld msg="Vite + Vue（Main-App）" />
-  <p @click="toSubApp">主应用： 点击进入子应用</p>
-  <SubApp />
+  <Layout>
+    <router-view></router-view>
+  </Layout>
 </template>
 
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
-}
-</style>
+<style></style>

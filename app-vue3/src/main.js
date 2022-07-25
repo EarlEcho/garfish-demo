@@ -17,7 +17,7 @@ const garfishRouter = (basename) => {
     });
     return router;
 };
-const vueRouter =  createRouter({
+const vueRouter = createRouter({
     history: createWebHistory(),
     routes,
 });

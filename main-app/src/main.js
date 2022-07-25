@@ -1,14 +1,27 @@
 import { createApp } from 'vue'
 import Garfish from 'garfish';
-import './style.css'
-import App from './App.vue'
 
-createApp(App).mount('#app')
+import App from './App.vue';
+import ArcoVue from '@arco-design/web-vue';
+import '@arco-design/web-vue/dist/arco.css';
+import { vueRouter } from './router/index.js';
 
+
+createApp(App).use(vueRouter).use(ArcoVue, {
+    // 用于改变使用组件时的前缀名称
+    componentPrefix: 'arco'
+}).mount('#app')
+
+// 可独立运行
+if (!window.__GARFISH__) {
+    console.log(111);
+} else {
+    console.log(222);
+}
 
 Garfish.run({
     // 子应用的基础路径、默认值为/ 、整个微前端应用的 basename
-    basename: '/',
+    basename: '/subapp',
     // 子应用的挂载节点
     domGetter: '#subApp',
     // 是否禁用子应用的资源预加载，默认值为 false，开启子应用的预加载能力，预加载能力在弱网环境和手机端不会开启
