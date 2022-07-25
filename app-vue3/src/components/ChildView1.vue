@@ -1,8 +1,5 @@
 <script setup>
 import { ref} from 'vue';
-// const { proxy } = getCurrentInstance();
-
-// console.log(' proxy', proxy);
 const hell2 = ref('11');
 </script>
 <template>

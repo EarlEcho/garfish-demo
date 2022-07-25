@@ -1,6 +1,5 @@
 import { createApp } from 'vue'
 import Garfish from 'garfish';
-
 import App from './App.vue';
 import ArcoVue from '@arco-design/web-vue';
 import '@arco-design/web-vue/dist/arco.css';
@@ -21,7 +20,7 @@ if (!window.__GARFISH__) {
 
 Garfish.run({
     // 子应用的基础路径、默认值为/ 、整个微前端应用的 basename
-    basename: '/subapp',
+    basename: '/',
     // 子应用的挂载节点
     domGetter: '#subApp',
     // 是否禁用子应用的资源预加载，默认值为 false，开启子应用的预加载能力，预加载能力在弱网环境和手机端不会开启

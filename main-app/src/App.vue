@@ -14,4 +14,6 @@ const toSubApp = () => {
   </Layout>
 </template>
 
-<style></style>
+<style>
+@import url(./assets/index.less);
+</style>

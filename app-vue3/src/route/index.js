@@ -1,9 +1,20 @@
 // 定义路由
 
-const App = () => import('../App.vue');
+const Index = () => import('../views/index.vue');
 const ChildMenu = () => import('../components/ChildView1.vue');
 
 export const routes = [
-  { path: '/', component: App },
-  { path: '/childMenu', name: 'ChildMenu', component: ChildMenu },
+  {
+    path: '/',
+    name: 'Index',
+    component: Index,
+    childrens: [
+      {
+        path: '/childMenu',
+        name: 'ChildMenu',
+        component: ChildMenu,
+      },
+    ],
+  },
+  ,
 ];
