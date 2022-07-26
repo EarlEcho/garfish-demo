@@ -1,16 +1,11 @@
 <template>
   <arco-layout class="layout-demo">
     <arco-layout-sider hide-trigger collapsible :collapsed="collapsed">
-      <div class="logo">
-        Echo Test Pro
-      </div>
-      <arco-menu :defaultOpenKeys="['1']" :defaultSelectedKeys="['1_2']" :style="{ width: '100%' }"
-        @menuItemClick="onClickMenuItem">
+      <div class="logo">Echo Test Pro</div>
+      <arco-menu :defaultOpenKeys="['1']" :defaultSelectedKeys="['1_2']" :style="{ width: '100%' }" @menuItemClick="onClickMenuItem">
         <arco-sub-menu key="1">
           <template #title>
-            <span>
-              <IconCalendar />主应用
-            </span>
+            <span> <IconCalendar />主应用 </span>
           </template>
           <arco-menu-item key="1_2">主应用路由 1</arco-menu-item>
           <arco-menu-item key="1_3">主应用路由 2</arco-menu-item>
@@ -18,9 +13,7 @@
 
         <arco-sub-menu key="2">
           <template #title>
-            <span>
-              <IconCalendar />子应用二
-            </span>
+            <span> <IconCalendar />子应用二 </span>
           </template>
           <arco-menu-item key="2_2">子应用三（手动挂载）</arco-menu-item>
         </arco-sub-menu>
@@ -31,13 +24,13 @@
       </arco-menu>
     </arco-layout-sider>
     <arco-layout>
-      <arco-layout-header style="padding-left: 20px;">
+      <arco-layout-header style="padding-left: 20px">
         <arco-button shape="round" @click="onCollapse">
           <IconCaretRight v-if="collapsed" />
           <IconCaretLeft v-else />
         </arco-button>
       </arco-layout-header>
-      <arco-layout style="padding: 0 24px;">
+      <arco-layout style="padding: 0 24px">
         <arco-breadcrumb :style="{ margin: '16px 0' }">
           <arco-breadcrumb-item>Home</arco-breadcrumb-item>
           <arco-breadcrumb-item>List</arco-breadcrumb-item>
@@ -46,21 +39,19 @@
         <arco-layout-content>
           <slot></slot>
         </arco-layout-content>
-        <arco-layout-footer>Footer</arco-layout-footer>
+        <arco-layout-footer>
+          <!-- {{ menuConfig }} -->
+          footer
+        </arco-layout-footer>
       </arco-layout>
     </arco-layout>
   </arco-layout>
 </template>
 <script>
-import { defineComponent, ref } from 'vue';
-import { Message } from '@arco-design/web-vue';
-import {
-  IconCaretRight,
-  IconCaretLeft,
-  IconHome,
-  IconCalendar,
-} from '@arco-design/web-vue/es/icon';
-
+import { defineComponent, ref, onMounted } from "vue";
+import { MenuConfig } from "@/utils/menu.js";
+import { Message } from "@arco-design/web-vue";
+import { IconCaretRight, IconCaretLeft, IconHome, IconCalendar } from "@arco-design/web-vue/es/icon";
 export default defineComponent({
   components: {
     IconCaretRight,
@@ -73,13 +64,15 @@ export default defineComponent({
     const onCollapse = () => {
       collapsed.value = !collapsed.value;
     };
+    const menuConfig = ref(MenuConfig);
     return {
       collapsed,
       onCollapse,
+      menuConfig,
       onClickMenuItem(key) {
         console.log(key);
         // Message.info({ content: `You select ${key}`, showIcon: true });
-      }
+      },
     };
   },
 });
@@ -129,7 +122,6 @@ export default defineComponent({
   display: flex;
   flex-direction: column;
   justify-content: center;
-  color: var(--color-white);
   font-size: 16px;
   font-stretch: condensed;
   text-align: center;
