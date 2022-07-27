@@ -1,23 +1,23 @@
 import { createApp } from 'vue'
 import Garfish from 'garfish';
 import App from './App.vue';
+import { useRoute, useRouter } from 'vue-router';
 import ArcoVue from '@arco-design/web-vue';
 import '@arco-design/web-vue/dist/arco.css';
 import { vueRouter } from './router/index.js';
+const app = createApp(App);
+const gloablRouter = useRouter();
+const gloablRoute = useRoute();
 
-
-createApp(App).use(vueRouter).use(ArcoVue, {
+app.config.globalProperties.$route = gloablRoute;
+app.config.globalProperties.$router = gloablRouter;
+app.use(vueRouter).use(ArcoVue, {
     // 用于改变使用组件时的前缀名称
     componentPrefix: 'arco'
 }).mount('#app')
 
 // 可独立运行
-if (!window.__GARFISH__) {
-    console.log(111);
-} else {
-    console.log(222);
-}
-
+// 主应用中的 window.__GARFISH__ 一直都是 true
 Garfish.run({
     // 子应用的基础路径、默认值为/ 、整个微前端应用的 basename
     basename: '/sub',

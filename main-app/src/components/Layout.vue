@@ -3,24 +3,23 @@
     <arco-layout-sider hide-trigger collapsible :collapsed="collapsed">
       <div class="logo">Echo Test Pro</div>
       <arco-menu :defaultOpenKeys="['1']" :defaultSelectedKeys="['1_2']" :style="{ width: '100%' }" @menuItemClick="onClickMenuItem">
-        <arco-sub-menu key="1">
-          <template #title>
-            <span> <IconCalendar />主应用 </span>
+        <template v-for="(menu, index) in menuConfig">
+          <template v-if="menu.childrens && menu.childrens.length > 0">
+            <arco-sub-menu :key="index">
+              <template #title>
+                <span> <IconCalendar />{{ menu.name }} </span>
+              </template>
+              <arco-menu-item v-for="(childrens, k) in menu.childrens" @click="onClickMenuItem(childrens)" :key="`${index}_${k}`">{{ childrens.name }}</arco-menu-item>
+            </arco-sub-menu>
           </template>
-          <arco-menu-item key="1_2">主应用路由 1</arco-menu-item>
-          <arco-menu-item key="1_3">主应用路由 2</arco-menu-item>
-        </arco-sub-menu>
 
-        <arco-sub-menu key="2">
-          <template #title>
-            <span> <IconCalendar />子应用二 </span>
+          <template v-else>
+            <arco-menu-item :key="index" @click="onClickMenuItem(menu)">
+              <IconCalendar />
+              {{ menu.name }}
+            </arco-menu-item>
           </template>
-          <arco-menu-item key="2_2">子应用三（手动挂载）</arco-menu-item>
-        </arco-sub-menu>
-        <arco-menu-item key="/appVue3">
-          <IconCalendar />
-          子应用一
-        </arco-menu-item>
+        </template>
       </arco-menu>
     </arco-layout-sider>
     <arco-layout>
@@ -39,43 +38,34 @@
         <arco-layout-content>
           <slot></slot>
         </arco-layout-content>
-        <arco-layout-footer>
-          <!-- {{ menuConfig }} -->
-          footer
-        </arco-layout-footer>
+        <arco-layout-footer> footer </arco-layout-footer>
       </arco-layout>
     </arco-layout>
   </arco-layout>
 </template>
-<script>
-import { defineComponent, ref, onMounted } from "vue";
+<script setup>
+import { defineComponent, ref, onMounted, getCurrentInstance } from "vue";
 import { MenuConfig } from "@/utils/menu.js";
 import { Message } from "@arco-design/web-vue";
 import { IconCaretRight, IconCaretLeft, IconHome, IconCalendar } from "@arco-design/web-vue/es/icon";
-export default defineComponent({
-  components: {
-    IconCaretRight,
-    IconCaretLeft,
-    IconHome,
-    IconCalendar,
-  },
-  setup() {
-    const collapsed = ref(false);
-    const onCollapse = () => {
-      collapsed.value = !collapsed.value;
-    };
-    const menuConfig = ref(MenuConfig);
-    return {
-      collapsed,
-      onCollapse,
-      menuConfig,
-      onClickMenuItem(key) {
-        console.log(key);
-        // Message.info({ content: `You select ${key}`, showIcon: true });
-      },
-    };
-  },
-});
+const { proxy } = getCurrentInstance();
+const collapsed = ref(false);
+const menuConfig = ref(MenuConfig);
+const onCollapse = () => {
+  collapsed.value = !collapsed.value;
+};
+const onClickMenuItem = (key) => {
+  console.log(key, proxy);
+  if (key.isMain) {
+    proxy.$router.push(key.path);
+  }
+  if (key.isSub) {
+    window?.Garfish?.router.push({
+      path: key.path,
+      basename: '/sub'
+    });
+  }
+};
 </script>
 <style scoped>
 .layout-demo {
