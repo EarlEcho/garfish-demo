@@ -17,7 +17,7 @@ export const MenuConfig = [
             path: '/main/child2',
         }]
     }, {
-        name: '子应用一',
+        name: '子应用一（自动挂载）',
         icon: '',
         key: '2',
         childrens: [{
@@ -27,15 +27,16 @@ export const MenuConfig = [
             key: '2-1',
             path: '/appVue3',
         },{
-            name: '子应用三（手动挂载）',
+            name: '子应用三（自动挂载）',
             isSub: true,
             icon: '',
             key: '2-1',
             path: '/appVue3/child1',
         }]
     }, {
-        name: '子应用二',
+        name: '子应用二（手动挂载）',
         isSub: true,
+        isLazyLoad: true, // 手动挂载
         icon: '',
         key: '2',
         path: '/appAntv',

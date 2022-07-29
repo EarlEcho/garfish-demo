@@ -35,11 +35,11 @@ Garfish.run({
                 // snapshot: true, 或者只开启快照沙箱
             },
         },
-        {
-            name: 'appAntv', // 每个应用的 name 需要保持唯一
-            activeWhen: '/appAntv',
-            entry: 'http://127.0.0.1:3002'
-        }
+        // {
+        //     name: 'appAntv', // 每个应用的 name 需要保持唯一
+        //     activeWhen: '/appAntv',
+        //     entry: 'http://127.0.0.1:3002'
+        // }
     ],
     beforeLoad(appInfo) {
         console.log('子应用开始加载', appInfo.name);

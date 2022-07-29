@@ -28,6 +28,10 @@
           <IconCaretRight v-if="collapsed" />
           <IconCaretLeft v-else />
         </arco-button>
+        <span>
+          &emsp;
+          <arco-button @click="sendMsgToSub">点击向子应用发送消息</arco-button>
+        </span>
       </arco-layout-header>
       <arco-layout style="padding: 0 24px">
         <arco-breadcrumb :style="{ margin: '16px 0' }">
@@ -44,6 +48,7 @@
   </arco-layout>
 </template>
 <script setup>
+import Garfish from "garfish";
 import { defineComponent, ref, onMounted, getCurrentInstance } from "vue";
 import { MenuConfig } from "@/utils/menu.js";
 import { Message } from "@arco-design/web-vue";
@@ -54,7 +59,7 @@ const menuConfig = ref(MenuConfig);
 const onCollapse = () => {
   collapsed.value = !collapsed.value;
 };
-const onClickMenuItem = (key) => {
+const onClickMenuItem = async (key) => {
   console.log(key, proxy);
   if (key.isMain) {
     proxy.$router.push(key.path);
@@ -62,9 +67,30 @@ const onClickMenuItem = (key) => {
   if (key.isSub) {
     window?.Garfish?.router.push({
       path: key.path,
-      basename: '/sub'
+      basename: "/sub",
     });
   }
+  if (key.isSub && key.isLazyLoad) {
+    // 手动挂载应用
+
+    let appInstance = null;
+    appInstance = await Garfish.loadApp("appAntv", {
+      cache: true,
+      basename: "/sub",
+      domGetter: "#subApp",
+      strictIsolation: true, // 严格隔离
+      sandbox: {
+        open: false,
+      },
+      entry: "http://127.0.0.1:3002",
+    });
+    console.log("appInstance", appInstance);
+    appInstance.mounted ? appInstance.show() : await appInstance.mount();
+  }
+};
+
+const sendMsgToSub = () => {
+  Garfish.channel.emit("msgChild", "这是一条从主应用发出，发给子应用的消息");
 };
 </script>
 <style scoped>
